@@ -17,7 +17,7 @@ logger.debug(f"📦 Current package context: {__package__}")
 
 # Discover and register optional handlers
 optional_modules = [
-    __package__ + ".pdf_handler",  # auto-expand to 'WrapAIVenice.handlers.pdf_handler'
+    __package__ + ".pdf_handler",  # auto-expand to 'WrapAI.handlers.pdf_handler'
     # Add more as needed
 ]
 

@@ -1,5 +1,8 @@
 # example.py
 
+from pathlib import Path
+import json
+
 # Configure Logging
 import logging
 
@@ -12,8 +15,8 @@ logging.basicConfig(
     ]
 )
 
-from pathlib import Path
-import json
+logger = logging.getLogger(__name__)
+
 from WrapAI.prompt_template import PromptTemplate
 from WrapAI.prompt_library import PromptLibrary
 
@@ -28,13 +31,14 @@ def debug_prompt_structure(prompt):
     print(f"Temperature: {attrs.temperature}")
     print(f"Top_p: {attrs.top_p}")
     print(f"Presence Penalty: {attrs.presence_penalty}")
+    print(f" - response_format: {json.dumps(attrs.response_format, indent=2)}")
 
     v_params = attrs.venice_parameters
     print(f"Venice Parameters type: {type(v_params)}")
     print(f" - enable_web_search: {v_params.enable_web_search}")
     print(f" - include_venice_system_prompt: {v_params.include_venice_system_prompt}")
     print(f" - character_slug: {v_params.character_slug}")
-    print(f" - response_format: {json.dumps(v_params.response_format, indent=2)}")
+
 
 
 

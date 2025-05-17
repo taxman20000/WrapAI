@@ -29,12 +29,24 @@ class PromptTemplate(BaseModel):
             logger.debug("PromptTemplate: converting default_attributes from dict.")
             self.default_attributes = PromptAttributes.from_dict(self.default_attributes)
 
+    # Get placeholder methods
     def get_placeholders(self) -> list[str]:
         return re.findall(r'<<\s*([\w.-]+)\s*>>', self.prompt_text)
 
     def get_file_placeholders(self) -> list[str]:
         return re.findall(r'%%\s*(.*?)\s*%%', self.prompt_text)
 
+    def get_output_placeholders(self) -> list[str]:
+        return re.findall(r'@@\s*([\w.-]+)\s*@@', self.prompt_text)
+
+    def get_all_placeholders(self) -> dict:
+        return {
+            "text": self.get_placeholders(),
+            "file": self.get_file_placeholders(),
+            "output": self.get_output_placeholders()
+        }
+
+    # Other Get methods
     def get_formatted_prompt(self, values: Dict[str, str | Path]) -> str:
         formatted = self.prompt_text
         missing = []
@@ -77,10 +89,12 @@ class PromptTemplate(BaseModel):
     def get_original_prompt_hash(self) -> str:
         return hashlib.sha256(self.prompt_text.encode('utf-8')).hexdigest()
 
+    # Generate prompt method
     def generate_prompt(self, prompt_text: str) -> list[str]:
         self.prompt_text = prompt_text
         return self.get_placeholders()
 
+    # Load methods
     def load_file_values(self, file_path: Path) -> Dict[str, str]:
         file_values = {}
         name = file_path.stem

@@ -1,4 +1,4 @@
-# WrapAIVenice/__init__.py
+# WrapAI/__init__.py
 
 import logging
 

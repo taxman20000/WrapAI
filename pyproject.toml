@@ -8,7 +8,8 @@ version = "0.1.0"
 description = "A reusable Python library"
 authors = [{ name = "David", email = "dave@chatrecall.com" }]
 dependencies = [
-    "requests>=2.31.0"
+    "requests>=2.31.0",
+    "tiktoken>=0.8.0"
 ]
 
 [tool.setuptools]

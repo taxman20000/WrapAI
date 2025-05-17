@@ -13,18 +13,7 @@ from WrapDataclass.core.base import BaseModel
 from .wv_core import WEB_SEARCH_MODES
 
 @dataclass
-class VeniceParameters(BaseModel):
-    enable_web_search: Optional[str] = None
-    include_venice_system_prompt: Optional[bool] = None
-    character_slug: Optional[str] = None
-    response_format: Optional[Dict[str, Any]] = None
-
-    def __post_init__(self):
-        if self.enable_web_search is not None and self.enable_web_search not in WEB_SEARCH_MODES:
-            raise ValueError(f"enable_web_search must be one of {WEB_SEARCH_MODES}, got '{self.enable_web_search}'")
-
-@dataclass
-class PromptAttributes(BaseModel):
+class OpenAIPromptAttributes(BaseModel):
     temperature: Optional[float] = None
     top_p: Optional[float] = None
     frequency_penalty: Optional[float] = None
@@ -38,7 +27,7 @@ class PromptAttributes(BaseModel):
     tools: Optional[Any] = None
     tool_choice: Optional[Dict[str, Any]] = None
     stream_options: Optional[Dict[str, Any]] = None
-    venice_parameters: VeniceParameters = field(default_factory=VeniceParameters)
+    response_format: Optional[Dict[str, Any]] = None
 
     def __post_init__(self):
         if self.temperature is not None and not (0 <= self.temperature <= 2):
@@ -50,9 +39,31 @@ class PromptAttributes(BaseModel):
         if self.presence_penalty is not None and not (-2 <= self.presence_penalty <= 2):
             raise ValueError("presence_penalty must be between -2 and 2.")
 
+
+@dataclass
+class VeniceParameters(BaseModel):
+    enable_web_search: Optional[str] = None
+    include_venice_system_prompt: Optional[bool] = None
+    character_slug: Optional[str] = None
+    # response_format: Optional[Dict[str, Any]] = None
+
+    def __post_init__(self):
+        if self.enable_web_search is not None and self.enable_web_search not in WEB_SEARCH_MODES:
+            raise ValueError(f"enable_web_search must be one of {WEB_SEARCH_MODES}, got '{self.enable_web_search}'")
+
+@dataclass
+class VenicePromptAttributes(OpenAIPromptAttributes):
+    venice_parameters: VeniceParameters = field(default_factory=VeniceParameters)
+
+    def __post_init__(self):
+        super().__post_init__()
+
         # Convert dict to VeniceParameters if passed as dict
         if isinstance(self.venice_parameters, dict):
             logger.warning(
-                "PromptAttributes: 'venice_parameters' was provided as a dict. Converting to VeniceParameters dataclass."
+                "VenicePromptAttributes: 'venice_parameters' was provided as a dict. Converting to VeniceParameters dataclass."
             )
             self.venice_parameters = VeniceParameters.from_dict(self.venice_parameters)
+
+# For backward compatibility
+PromptAttributes = VenicePromptAttributes
