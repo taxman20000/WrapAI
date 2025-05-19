@@ -7,4 +7,4 @@ MINOR: Incremented for adding functionality in a backward-compatible manner.
 PATCH: Incremented for backward-compatible bug fixes.
 """
 
-__version__ = "0.2.0"
+__version__ = "0.2.1"

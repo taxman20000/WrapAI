@@ -24,6 +24,7 @@ from .wv_core import WEB_SEARCH_MODES, CUSTOM_SYSTEM_PROMPT
 from .schema_document import DocumentManager
 from .schema_json import SchemaBuilder, SchemaField, extract_schema_fields_from_json, reconcile_schema_fields
 from .schema_parser import parse_response_with_schema
+from .info.models import VeniceModels
 
 
 __all__ = [
@@ -43,5 +44,6 @@ __all__ = [
     "SchemaField",
     "extract_schema_fields_from_json",
     "reconcile_schema_fields",
-    "parse_response_with_schema"
+    "parse_response_with_schema",
+    "VeniceModels"
 ]

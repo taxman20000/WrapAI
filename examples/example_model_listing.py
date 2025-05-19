@@ -3,6 +3,10 @@ from secret_loader import load_secret
 
 import pprint
 
+from WrapAI.info.models import VeniceModels
+from secret_loader import load_secret
+import pprint
+
 # Example usage:
 if __name__ == "__main__":
     api_key = load_secret("VENICE_API_KEY")
@@ -14,29 +18,35 @@ if __name__ == "__main__":
     model_names = venice_models.get_model_names()
     print("Model Names:", model_names)
 
-    print("Get details on a model")
-    details = venice_models.get_model_detail("venice-uncensored")
-    print(details)
-    print(details["response_schema"])
-    print(details["reasoning"])
+    print("\nGet full detail for one model (venice-uncensored):")
+    all_models = venice_models.get_full_model_detail_dict()
+    model_detail = all_models.get("venice-uncensored", {})
+    pprint.pprint(model_detail)
 
-    # Get dictionary of model names and their token counts
-    model_tokens_dict = venice_models.get_model_tokens_dict()
-    # print("Model Tokens Dictionary:", model_tokens_dict)
-    # Create a PrettyPrinter instance
-    pp = pprint.PrettyPrinter(indent=4)
-    print("Model Tokens Dictionary:")
-    pp.pprint(model_tokens_dict)
+    # Example: Access nested capabilities directly from raw detail
+    caps = model_detail.get("model_spec", {}).get("capabilities", {})
+    print("Response Schema Supported:", caps.get("supportsResponseSchema"))
+    print("Reasoning Supported:", caps.get("supportsReasoning"))
 
-    # Get full model detail dictionary
-    print("\nModel Detail Dictionary:")
-    model_detail_dict = venice_models.get_model_detail_dict()
-    pp.pprint(model_detail_dict)
+    print("\nAll models - full detail dict (recommended usage):")
+    pprint.pprint(all_models)
 
-    # Get token count for a specific model
-    specific_model_name = "deepseek-r1-671b"
-    tokens = venice_models.get_tokens_by_model_name(specific_model_name)
-    print(f"Available Tokens for {specific_model_name}:", tokens)
+    print("\n--- DEPRECATED methods ---")
+    print("The following methods are deprecated and will be removed in a future release:")
+    print("- get_model_detail()")
+    print("- get_model_tokens_dict()")
+    print("- get_model_detail_dict()")
+    print("- get_model_detail_dict_full()")
+    print("- get_tokens_by_model_name()")
+    print("Please use get_full_model_detail_dict() and extract the info you need directly.")
 
-    print('All model data')
-    pp.pprint(venice_models.models_data)
+    # Optional: If you want to keep showing how to migrate
+    # For example, to get available tokens for a model:
+    model_id = "deepseek-r1-671b"
+    tokens = all_models.get(model_id, {}).get("model_spec", {}).get("availableContextTokens", "N/A")
+    print(f"\nAvailable Tokens for {model_id}:", tokens)
+
+    # Pretty-print all raw model data if needed
+    print('\nAll model data (raw, from venice_models.models_data):')
+    pprint.pprint(venice_models.models_data)
+
