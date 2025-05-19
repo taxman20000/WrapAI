@@ -19,21 +19,27 @@ from secret_loader import load_secret
 
 
 # Choose which API to use
-USE_VENICE = True  # Set to False to use OpenAI
+USE_VENICE = False  # Set to False to use OpenAI
 
 if USE_VENICE:
+    print("Using Venice")
     API_KEY_TYPE = "VENICE_API_KEY_ADMIN"
-    MODEL = "dolphin-2.9.2-qwen2-72b"
+    MODEL = "venice-uncensored" # Not reasoning
+    # MODEL = "qwen-2.5-qwq-32b" # Reasoning
     # PROMPT = "test_json"
-    PROMPT = "executive_order_evaluator_prompt_json"
+    # PROMPT = "executive_order_evaluator_prompt_json"
+    # PROMPT = "test_venice"
+    PROMPT = "test_json"
 
     api_key = load_secret(API_KEY_TYPE)
     runner = VeniceTextPrompt(api_key=api_key, model=MODEL)
 else:
+    print("Using OpenAI")
     API_KEY_TYPE = "OPENAI_API_KEY"
     MODEL = "gpt-4.1-nano"
     OPENAI_BASE_URL = "https://api.openai.com/v1"
-    PROMPT = "test_again"
+    # PROMPT = "test_openai"
+    PROMPT = "test_json"
 
     api_key = load_secret(API_KEY_TYPE)
     runner = OpenAITextPrompt(api_key=api_key, model=MODEL, base_url=OPENAI_BASE_URL)
