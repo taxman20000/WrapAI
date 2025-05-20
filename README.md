@@ -36,6 +36,19 @@ pip install -e .
 
 ---
 
+## API Keys for Examples
+
+To run the examples, create a `.env` file inside the `examples` directory with the following contents:
+
+VENICE_API_KEY=<your_api_key>
+VENICE_API_KEY_ADMIN=<your_api_key>
+OPENAI_API_KEY=<your_api_key>
+
+Replace `<your_api_key>` with your actual API keys for Venice and OpenAI.  
+This allows the example scripts to authenticate and run successfully.
+
+---
+
 ## Quick Example
 
 ```python

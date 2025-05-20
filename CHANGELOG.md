@@ -8,6 +8,10 @@ Removed: Backward-incompatible removals.
 Fixed: Bug fixes.
 Security: Security patches (critical to highlight). 
 
+## [0.2.3] - 2025-05-20
+### Changed
+- Updated the README.md file for api_key instructions
+
 ## [0.2.2] - 2025-05-19
 ### Added
 - added support for new venice_parameters in the prompt_attributes
