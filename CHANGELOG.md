@@ -8,6 +8,10 @@ Removed: Backward-incompatible removals.
 Fixed: Bug fixes.
 Security: Security patches (critical to highlight). 
 
+## [0.2.4] - 2025-05-27
+### Changed
+- Miscellaneous change for initial release including account_info changes to return values instead of print them
+
 ## [0.2.3] - 2025-05-20
 ### Changed
 - Updated the README.md file for api_key instructions

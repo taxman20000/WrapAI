@@ -1,6 +1,6 @@
 # schema_document
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Dict, Any, Union, Optional
 import json
 from pathlib import Path

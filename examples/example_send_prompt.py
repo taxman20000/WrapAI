@@ -19,13 +19,15 @@ from secret_loader import load_secret
 
 
 # Choose which API to use
-USE_VENICE = False  # Set to False to use OpenAI
+USE_VENICE = True  # Set to False to use OpenAI
 
 if USE_VENICE:
     print("Using Venice")
     API_KEY_TYPE = "VENICE_API_KEY_ADMIN"
-    MODEL = "venice-uncensored" # Not reasoning
-    # MODEL = "qwen-2.5-qwq-32b" # Reasoning
+    # MODEL = "venice-uncensored" # Not reasoning
+    # MODEL = 'deepseek-r1-671b'
+    # MODEL = 'llama-3.1-405b'
+    MODEL = "qwen-2.5-qwq-32b" # Reasoning
     # PROMPT = "test_json"
     # PROMPT = "executive_order_evaluator_prompt_json"
     # PROMPT = "test_venice"

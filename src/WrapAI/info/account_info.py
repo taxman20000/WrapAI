@@ -20,48 +20,21 @@ class VeniceApiKeyInfo:
         response = requests.get(url, headers=headers)
         response.raise_for_status()  # Check for HTTP errors
 
-        # Parse the JSON data
-        data = response.json()
-
-
-        # Initialize pretty printer
-        pp = PrettyPrinter(indent=2)
-
-        # Print both raw and formatted versions
-        print("Raw response:")
-        print(response.text)
-
-        print("\nFormatted output:")
-        pp.pprint(data)
+        return response
 
     def list_api_key_rate_limits(self):
         url = RATE_LIMIT_API_URL
 
         headers = {"Authorization": f"Bearer {self.api_key}"}
-
         response = requests.request("GET", url, headers=headers)
-
         response.raise_for_status()  # Check for HTTP errors
 
-        # Parse the JSON data
-        data = response.json()
-
-        # Initialize pretty printer
-        pp = PrettyPrinter(indent=2)
-
-        # Print both raw and formatted versions
-        print("Raw response:")
-        print(response.text)
-
-        print("\nFormatted output:")
-        pp.pprint(data)
+        return response
 
     def get_model_rate_limits(self):
         url = RATE_LIMIT_MODEL_URL
 
-        # payload = {}
         headers = {f"Authorization": f"Bearer {self.api_key}"}
+        response = requests.request("GET", url, headers=headers)
 
-        response = requests.request("GET", url, headers=headers)  # , data=payload
-
-        print(response.text)
+        return response

@@ -205,8 +205,7 @@ class VeniceTextPrompt(OpenAITextPrompt):
         if response_format:
             payload["response_format"] = response_format
 
-        print("Payload")
-        print(payload)
+        logger.info(f"Payload\n{payload}")
 
         try:
             response = requests.post(
@@ -215,6 +214,7 @@ class VeniceTextPrompt(OpenAITextPrompt):
                 json=payload,
                 timeout=300
             )
+            logger.debug(f"Response:\n {response}")
             logger.debug(f"API response status: {response.status_code}")
             data = response.json()
 
