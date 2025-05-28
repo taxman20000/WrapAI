@@ -1,0 +1,40 @@
+{
+  "data": {
+    "executive_order_summary_prompt": {
+      "type": "policy",
+      "subtype": "summary",
+      "prompt_text": "Summarize the key points of this executive order: <<order_text>>",
+      "default_attributes": {
+        "temperature": 0.7,
+        "top_p": 0.9,
+        "presence_penalty": 0.0,
+        "response_format": {
+          "type": "json_object"
+        },
+        "venice_parameters": {
+          "enable_web_search": "off",
+          "include_venice_system_prompt": true,
+          "character_slug": "policy-analyst"
+        }
+      }
+    },
+    "test_json": {
+      "type": "test",
+      "subtype": "json",
+      "prompt_text": "Process this JSON input: <<data>>",
+      "default_attributes": {
+        "temperature": 0.5,
+        "top_p": 1.0,
+        "presence_penalty": 0.0,
+        "response_format": {
+          "type": "text"
+        },
+        "venice_parameters": {
+          "enable_web_search": "off",
+          "include_venice_system_prompt": true,
+          "character_slug": "default"
+        }
+      }
+    }
+  }
+}
