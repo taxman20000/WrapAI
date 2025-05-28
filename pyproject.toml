@@ -7,31 +7,16 @@ name = "WrapAI"
 version = "0.1.0"
 description = "A reusable Python library"
 authors = [{ name = "David", email = "dave@chatrecall.com" }]
-requires-python = ">=3.12"
+requires-python = ">=3.13"
 
 dependencies = [
     "requests>=2.31.0",
     "tiktoken>=0.8.0",
+    "wrapdataclass",
 ]
-
-[dependency-groups]
-prod = ["wrapdataclass"]
-dev = [{include-group = "prod"}]
 
 [tool.setuptools]
 include-package-data = true
 
-[tool.uv]
-default-groups = ["prod"]
-conflicts = [[
-      { group = "prod" },
-      { group = "dev" },
-],]
-
 [tool.uv.sources]
-wrapdataclass = [
-    # Production source (git)
-    { git = "https://github.com/taxman20000/WrapDataclass.git", group="prod" },
-    # Development override (local path)
-    { path = "../WrapDataclass", group="dev" },
-]
+wrapdataclass = { git = "https://github.com/taxman20000/WrapDataclass.git"}
