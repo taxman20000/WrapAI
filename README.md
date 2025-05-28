@@ -20,7 +20,19 @@ Modular Python library for AI prompt engineering, chat memory, schema validation
 ---
 
 ## Installation
+### With uv
+Clone and run the `example.py` script directly:
 
+```bash
+git clone https://github.com/WrapTools/WrapAI.git
+cd WrapAI
+uv run examples/example.py
+#Or developer mode:
+uv run --no-default-groups --dev examples/example.py
+```
+
+
+### With pip
 Clone and install in editable mode:
 
 ```bash
