@@ -27,9 +27,9 @@ Clone and run the `example.py` script directly:
 git clone https://github.com/WrapTools/WrapAI.git
 cd WrapAI
 # Run the script using remote dependencies
-uv run examples/example.py
+uv run --with ".[wrapdeps-remote]" examples/example.py
 # Or developer mode with dependencies on a local install:
-uv run --with "../WrapDataclass" examples/example.py
+uv run --with ".[wrapdeps-local]" examples/example.py
 ```
 
 
