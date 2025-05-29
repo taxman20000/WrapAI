@@ -12,11 +12,25 @@ requires-python = ">=3.13"
 dependencies = [
     "requests>=2.31.0",
     "tiktoken>=0.8.0",
-    "wrapdataclass",
 ]
+
+[project.optional-dependencies]
+wrapdeps-remote = ["wrapdataclass"]
+wrapdeps-local = ["wrapdataclass"]
 
 [tool.setuptools]
 include-package-data = true
 
+[tool.uv]
+conflicts = [
+    [
+        { extra = "wrapdeps-remote" },
+        { extra = "wrapdeps-local" },
+    ]
+]
+
 [tool.uv.sources]
-wrapdataclass = { git = "https://github.com/taxman20000/WrapDataclass.git"}
+"wrapdataclass" = [
+    { git = "https://github.com/taxman20000/WrapDataclass.git", extra = "wrapdeps-remote"},
+    { path = "../WrapDataclass", extra = "wrapdeps-local"}
+]
